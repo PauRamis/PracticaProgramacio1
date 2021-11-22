@@ -38,10 +38,7 @@ public class Numbers {
             case 9:
                 unidad = "nine";
                 break;
-            default:
-
-        }
-            /*case 10:
+            case 10:
                  unidad = "ten";
                 break;
             case 11:
@@ -75,7 +72,7 @@ public class Numbers {
                  unidad = "";
                 break;
         }
-
+/*
         switch (arN[2]){
 
             case 2:
