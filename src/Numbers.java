@@ -1,131 +1,143 @@
 
 public class Numbers {
     public static String say(long n) {
-        int arN[] = new int[10];
-        String unidad = prim(n);
-        return unidad.substring(0, 1).toUpperCase() + unidad.substring(1);
+        int arN[] = new int[(int) n];
+        String numero = unitat(n);
+        //String numero = desena1(n);
+        //String numero = desena2 (n);
+        //String numero = centena (n);
+        return numero.substring(0, 1).toUpperCase() + numero.substring(1);
 
     }
 
     //Aquesta funció agafa la primera unitat
-    private static String prim(long n) {
-        String unidad = "";
+    private static String unitat(long n) {
+        String numero = "";
         switch ((int) n) {
             case 0:
-                unidad = "zero";
+                numero = "zero";
                 break;
             case 1:
-                unidad = "one";
+                numero = "one";
                 break;
             case 2:
-                unidad = "two";
+                numero = "two";
                 break;
             case 3:
-                unidad = "three";
+                numero = "three";
                 break;
             case 4:
-                unidad = "four";
+                numero = "four";
                 break;
             case 5:
-                unidad = "five";
+                numero = "five";
                 break;
             case 6:
-                unidad = "six";
+                numero = "six";
                 break;
             case 7:
-                unidad = "seven";
+                numero = "seven";
                 break;
             case 8:
-                unidad = "eigth";
+                numero = "eigth";
                 break;
             case 9:
-                unidad = "nine";
+                numero = "nine";
                 break;
+        }
+        return numero;
+    }
+
+    private static String desena1(long n) {
+        String numero = "";
+        switch ((int) n) {
             case 10:
-                unidad = "ten";
+                numero = "ten";
                 break;
             case 11:
-                unidad = "eleven";
+                numero = "eleven";
                 break;
             case 12:
-                unidad = "twelve";
+                numero = "twelve";
                 break;
             case 13:
-                unidad = "thirteen";
+                numero = "thirteen";
                 break;
             case 14:
-                unidad = "fourteen";
+                numero = "fourteen";
                 break;
             case 15:
-                unidad = "fifteen";
+                numero = "fifteen";
                 break;
             case 16:
-                unidad = "sixteen";
+                numero = "sixteen";
                 break;
             case 17:
-                unidad = "seventeen";
+                numero = "seventeen";
                 break;
             case 18:
-                unidad = "eighteen";
+                numero = "eighteen";
                 break;
             case 19:
-                unidad = "nineteen";
+                numero = "nineteen";
                 break;
             default:
-                unidad = "";
+                numero = "";
                 break;
         }
-        /*
-        switch (arN[2]){
+        return numero;
+    }
 
+    private static String desena2(long n) {
+        String numero = "";
+        switch ((int) n) {
             case 2:
-                return "twenty";
+                numero = "twenty";
             case 3:
-                return "thirteen";
+                numero = "thirteen";
             case 4:
-                return "forty-" + arN[0];
+                numero = "forty";
             case 5:
-                return "fifthy" + arN[0];
+                numero = "fifthy";
             case 6:
-                return "sixty" + arN[0];
+                numero = "sixty";
             case 7:
-                return "seventy" + arN[0];
+                numero = "seventy";
             case 8:
-                return "eighty" + arN[0];
+                numero = "eighty";
             case 9:
-                return "ninety" + arN[0];
-            default:
-                return "";
+                numero = "ninety";
         }
+        return numero;
+    }
 
-        switch (arN[3]){
+    private static String centena(long n) {
+        String numero = "";
+        switch ((int) n) {
             case 1:
-                return "one hundred and" + arN[2];
+                numero = "one hundred";
             case 2:
-                return "two hundred and" + arN[2];
+                numero = "two hundred";
             case 3:
-                return "three hundred and" + arN[2];
+                numero = "three hundred";
             case 4:
-                return "forth hundred and" + arN[2];
+                numero = "forth hundred";
             case 5:
-                return "fifth hundred and" + arN[2];
+                numero = "fifth hundred";
             case 6:
-                return "six hundred and" + arN[2];
+                numero = "six hundred";
             case 7:
-                return "seven hundred and" + arN[2];
+                numero = "seven hundred";
             case 8:
-                return "eight hundred and" + arN[2];
+                numero = "eight hundred";
             case 9:
-                return "nine hundred and" + arN[2];
-            default:
-                return "";
+                numero = "nine hundred";
         }
-
-             */
-    return unidad;
+        return numero;
     }
 
     public static long words(String s) {
         return 0;
     }
+
 }
