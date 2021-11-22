@@ -2,11 +2,14 @@
 public class Numbers {
     public static String say(long n) {
         int arN[] = new int[10];
+        String unidad = prim(n);
+        return unidad.substring(0, 1).toUpperCase() + unidad.substring(1);
 
-        //Cream la variable unidad, que ens permetrà trobar el primer nombre de l'array
+    }
+
+    //Aquesta funció agafa la primera unitat
+    private static String prim(long n) {
         String unidad = "";
-
-        //Segons quin sigui el nombre de l'array, "unidad" tindrà un valor o un altre
         switch ((int) n) {
             case 0:
                 unidad = "zero";
@@ -39,40 +42,40 @@ public class Numbers {
                 unidad = "nine";
                 break;
             case 10:
-                 unidad = "ten";
+                unidad = "ten";
                 break;
             case 11:
-                 unidad = "eleven";
+                unidad = "eleven";
                 break;
             case 12:
-                 unidad = "twelve";
+                unidad = "twelve";
                 break;
             case 13:
-                 unidad = "thirteen";
+                unidad = "thirteen";
                 break;
             case 14:
-                 unidad = "fourteen";
+                unidad = "fourteen";
                 break;
             case 15:
-                 unidad = "fifteen";
+                unidad = "fifteen";
                 break;
             case 16:
-                 unidad = "sixteen";
+                unidad = "sixteen";
                 break;
             case 17:
-                 unidad = "seventeen";
+                unidad = "seventeen";
                 break;
             case 18:
-                 unidad = "eighteen";
+                unidad = "eighteen";
                 break;
             case 19:
-                 unidad = "nineteen";
+                unidad = "nineteen";
                 break;
             default:
-                 unidad = "";
+                unidad = "";
                 break;
         }
-/*
+        /*
         switch (arN[2]){
 
             case 2:
@@ -119,7 +122,7 @@ public class Numbers {
         }
 
              */
-        return unidad.substring(0, 1).toUpperCase() + unidad.substring(1);
+    return unidad;
     }
 
     public static long words(String s) {
