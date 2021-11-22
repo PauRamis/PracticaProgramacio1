@@ -1,60 +1,79 @@
-import java.util.Scanner;
 
 public class Numbers {
     public static String say(long n) {
         int arN[] = new int[10];
-        Scanner s = new Scanner(System.in);
-        System.out.println("Insereix un numero");
-        arN[10] = s.nextInt();
 
-        switch (arN[0]) {
+        //Cream la variable unidad, que ens permetrà trobar el primer nombre de l'array
+        String unidad = "";
+
+        //Segons quin sigui el nombre de l'array, "unidad" tindrà un valor o un altre
+        switch ((int) n) {
+            case 0:
+                unidad = "zero";
+                break;
             case 1:
-                return "one";
+                unidad = "one";
+                break;
             case 2:
-                return "two";
+                unidad = "two";
+                break;
             case 3:
-                return "three";
+                unidad = "three";
+                break;
             case 4:
-                return "four";
+                unidad = "four";
+                break;
             case 5:
-                return "five";
+                unidad = "five";
+                break;
             case 6:
-                return "six";
+                unidad = "six";
+                break;
             case 7:
-                return "seven";
+                unidad = "seven";
+                break;
             case 8:
-                return "eigth";
+                unidad = "eigth";
+                break;
             case 9:
-                return "nine";
-            case 10:
-                return "ten";
-
+                unidad = "nine";
+                break;
             default:
-                return "";
+
         }
-
-        switch (arN[1]) {
+            /*case 10:
+                 unidad = "ten";
+                break;
             case 11:
-                return "eleven";
+                 unidad = "eleven";
+                break;
             case 12:
-                return "twelve";
+                 unidad = "twelve";
+                break;
             case 13:
-                return "thirteen";
+                 unidad = "thirteen";
+                break;
             case 14:
-                return "fourteen";
+                 unidad = "fourteen";
+                break;
             case 15:
-                return "fifteen";
+                 unidad = "fifteen";
+                break;
             case 16:
-                return "sixteen";
+                 unidad = "sixteen";
+                break;
             case 17:
-                return "seventeen";
+                 unidad = "seventeen";
+                break;
             case 18:
-                return "eighteen";
+                 unidad = "eighteen";
+                break;
             case 19:
-                return "nineteen";
+                 unidad = "nineteen";
+                break;
             default:
-                return "";
-
+                 unidad = "";
+                break;
         }
 
         switch (arN[2]){
@@ -101,12 +120,12 @@ public class Numbers {
             default:
                 return "";
         }
-    }
 
+             */
+        return unidad.substring(0, 1).toUpperCase() + unidad.substring(1);
+    }
 
     public static long words(String s) {
         return 0;
     }
-
-
 }
