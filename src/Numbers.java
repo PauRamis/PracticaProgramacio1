@@ -1,11 +1,20 @@
 
 public class Numbers {
     public static String say(long n) {
-        int arN[] = new int[(int) n];
+        //Primer, pasarem el nombre "n" a un array format per tots els seus arDigits
+        String number = String.valueOf(n);
+        char[] arDigits = number.toCharArray();
+
+        //Ara voldrem trobar els ultims valors de l'array, per poder aplicar les funcions
+        for (int i = 1; i < arDigits.length; i++) {
+            int a = arDigits[arDigits.length - i];
+
+        }
+
         String numero = unitat(n);
         //String numero = desena1(n);
-        //String numero = desena2 (n);
-        //String numero = centena (n);
+        //String numero = desena2(n);
+        //String numero = centena(n);
         return numero.substring(0, 1).toUpperCase() + numero.substring(1);
 
     }
