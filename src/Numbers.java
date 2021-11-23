@@ -8,18 +8,31 @@ public class Numbers {
         //Ara voldrem trobar els ultims valors de l'array, per poder aplicar les funcions
         for (int i = 1; i < arDigits.length; i++) {
             int a = arDigits[arDigits.length - i];
-
         }
 
-        String numero = unitat(n);
-        //String numero = desena1(n);
-        //String numero = desena2(n);
-        //String numero = centena(n);
-        return numero.substring(0, 1).toUpperCase() + numero.substring(1);
-
+        //Aquesta funció, activarà la funció que pertoqui, depenguent del nombre
+        String resultat = ordreIfs(arDigits, n);
+        return resultat.substring(0, 1).toUpperCase() + resultat.substring(1);
     }
 
-    //Aquesta funció agafa la primera unitat
+    private static String ordreIfs(char[] arDigits, long n) {
+        String numero = "";
+        if (arDigits.length < 10) {
+            numero = unitat(n);
+        }
+        else if (arDigits.length < 20) {
+            numero = desena1(n);
+        }
+        else if (arDigits.length < 100) {
+            numero = desena2(n);
+        }
+        else if (arDigits.length < 1000) {
+        numero = centena(n);
+        }
+        return numero;
+    }
+
+    //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
     private static String unitat(long n) {
         String numero = "";
         switch ((int) n) {
@@ -144,6 +157,7 @@ public class Numbers {
         }
         return numero;
     }
+
 
     public static long words(String s) {
         return 0;
