@@ -1,47 +1,52 @@
+import java.util.Arrays;
 
 public class Numbers {
     public static String say(long n) {
-        //Primer, pasarem el nombre "n" a un array format per tots els seus arDigits
+        //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
         String number = String.valueOf(n);
         char[] arDigits = number.toCharArray();
 
+        //Ara cream un array per posteriorment posar-li els nombres en format de paruales
+        String[] arParaules = new String[number.length()];
+
         //Ara voldrem trobar els ultims valors de l'array, per poder aplicar les funcions
         for (int i = 1; i < arDigits.length; i++) {
-            int a = arDigits[arDigits.length - i];
+            int last = arDigits[arDigits.length - i];
+        }
+        //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
+        for (int i = 0; i < arDigits.length; i++) {
+            arParaules[i] = ordreIfs(arDigits, n);
         }
 
 
-        //Aquesta funció, activarà la funció que pertoqui, depenguent del nombre
-        String resultat = ordreIfs(arDigits, n);
+        //Retornam el resultat, però la primera lletra en majuscules
+        String resultat = Arrays.toString(arParaules);
         return resultat.substring(0, 1).toUpperCase() + resultat.substring(1);
     }
 
     //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
     private static String ordreIfs(char[] arDigits, long n) {
         String numero = "";
+
         //Primer de tot, si es menos que 20, va directe a la funció unitat.
         if (n < 20) {
-            numero = unitat(n);
-            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció (exemple: 101, nesecita 100 i 1, una unitat i una centena)
+            numero = unitat(arDigits);
+
+        //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció (exemple: 101, nesecita 100 i 1, una unitat i una centena)
         } else if (arDigits.length < 3) {
-            numero = desena(n);
-            /*if (arDigits[1] != 0){
-                numero = unitat(n);
-            }*/
+            numero = desena(arDigits);
+
         } else if (arDigits.length < 4) {
             numero = centena(arDigits);
-            if (arDigits[1] != 0){
-                numero = desena(n);
-            }
         }
         return numero;
     }
 
 
     //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
-    private static String unitat(long n) {
+    private static String unitat(char[] arDigits){
         String numero = "";
-        switch ((int) n) {
+        switch (arDigits[0]) {
             case 0:
                 numero = "zero";
                 break;
@@ -109,9 +114,9 @@ public class Numbers {
         return numero;
     }
 
-    private static String desena(long n) {
+    private static String desena(char[] arDigits) {
         String numero = "";
-        switch ((int) n) {
+        switch (arDigits[1]) {
             case 1:
                 numero = "";
             case 2:
@@ -136,7 +141,7 @@ public class Numbers {
 
     private static String centena(char[] arDigits) {
         String numero = "";
-        switch (arDigits[3]) {
+        switch (arDigits[2]) {
             case 1:
                 numero = "one hundred";
             case 2:
@@ -157,6 +162,7 @@ public class Numbers {
                 numero = "nine hundred";
         }
         return numero;
+
     }
 
 
