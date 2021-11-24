@@ -10,27 +10,33 @@ public class Numbers {
             int a = arDigits[arDigits.length - i];
         }
 
+
         //Aquesta funció, activarà la funció que pertoqui, depenguent del nombre
         String resultat = ordreIfs(arDigits, n);
         return resultat.substring(0, 1).toUpperCase() + resultat.substring(1);
     }
 
+    //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
     private static String ordreIfs(char[] arDigits, long n) {
         String numero = "";
-        if (arDigits.length < 10) {
+        //Primer de tot, si es menos que 20, va directe a la funció unitat.
+        if (n < 20) {
             numero = unitat(n);
-        }
-        else if (arDigits.length < 20) {
-            numero = desena1(n);
-        }
-        else if (arDigits.length < 100) {
-            numero = desena2(n);
-        }
-        else if (arDigits.length < 1000) {
-        numero = centena(n);
+            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció (exemple: 101, nesecita 100 i 1, una unitat i una centena)
+        } else if (arDigits.length < 3) {
+            numero = desena(n);
+            /*if (arDigits[1] != 0){
+                numero = unitat(n);
+            }*/
+        } else if (arDigits.length < 4) {
+            numero = centena(arDigits);
+            if (arDigits[1] != 0){
+                numero = desena(n);
+            }
         }
         return numero;
     }
+
 
     //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
     private static String unitat(long n) {
@@ -66,13 +72,6 @@ public class Numbers {
             case 9:
                 numero = "nine";
                 break;
-        }
-        return numero;
-    }
-
-    private static String desena1(long n) {
-        String numero = "";
-        switch ((int) n) {
             case 10:
                 numero = "ten";
                 break;
@@ -110,9 +109,11 @@ public class Numbers {
         return numero;
     }
 
-    private static String desena2(long n) {
+    private static String desena(long n) {
         String numero = "";
         switch ((int) n) {
+            case 1:
+                numero = "";
             case 2:
                 numero = "twenty";
             case 3:
@@ -133,9 +134,9 @@ public class Numbers {
         return numero;
     }
 
-    private static String centena(long n) {
+    private static String centena(char[] arDigits) {
         String numero = "";
-        switch ((int) n) {
+        switch (arDigits[3]) {
             case 1:
                 numero = "one hundred";
             case 2:
