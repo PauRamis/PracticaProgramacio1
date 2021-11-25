@@ -3,19 +3,21 @@ import java.util.Arrays;
 public class Numbers {
     public static String say(long n) {
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
-        String number = String.valueOf(n);
-        char[] arDigits = number.toCharArray();
+        int[] arDigits = Integer.toString((int) n).chars().map(c -> c-'0').toArray();
+
 
         //Ara cream un array per posteriorment posar-li els nombres en format de paruales
-        String[] arParaules = new String[number.length()];
+        String[] arParaules = new String[arDigits.length];
 
         //Ara voldrem trobar els ultims valors de l'array, per poder aplicar les funcions
         for (int i = 1; i < arDigits.length; i++) {
             int last = arDigits[arDigits.length - i];
         }
+
         //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
         for (int i = 0; i < arDigits.length; i++) {
-            arParaules[i] = ordreIfs(arDigits, n);
+            String numeroActual = ordreIfs(arDigits, n);
+            arParaules[i] = numeroActual;
         }
 
 
@@ -25,7 +27,7 @@ public class Numbers {
     }
 
     //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
-    private static String ordreIfs(char[] arDigits, long n) {
+    private static String ordreIfs(int[] arDigits, long n) {
         String numero = "";
 
         //Primer de tot, si es menos que 20, va directe a la funció unitat.
@@ -44,7 +46,7 @@ public class Numbers {
 
 
     //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
-    private static String unitat(char[] arDigits){
+    private static String unitat(int[] arDigits){
         String numero = "";
         switch (arDigits[0]) {
             case 0:
@@ -114,7 +116,7 @@ public class Numbers {
         return numero;
     }
 
-    private static String desena(char[] arDigits) {
+    private static String desena(int[] arDigits) {
         String numero = "";
         switch (arDigits[1]) {
             case 1:
@@ -139,7 +141,7 @@ public class Numbers {
         return numero;
     }
 
-    private static String centena(char[] arDigits) {
+    private static String centena(int[] arDigits) {
         String numero = "";
         switch (arDigits[2]) {
             case 1:
