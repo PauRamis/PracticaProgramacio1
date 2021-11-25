@@ -3,23 +3,17 @@ import java.util.Arrays;
 public class Numbers {
     public static String say(long n) {
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
+        //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
         int[] arDigits = Integer.toString((int) n).chars().map(c -> c-'0').toArray();
 
-
-        //Ara cream un array per posteriorment posar-li els nombres en format de paruales
+        //Ara cream un array per posteriorment guardar els nombres en format de paruales, per la longitut usam l'anterior array com referencia
         String[] arParaules = new String[arDigits.length];
-
-        //Ara voldrem trobar els ultims valors de l'array, per poder aplicar les funcions
-        for (int i = 1; i < arDigits.length; i++) {
-            int last = arDigits[arDigits.length - i];
-        }
 
         //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
         for (int i = 0; i < arDigits.length; i++) {
             String numeroActual = ordreIfs(arDigits, n);
             arParaules[i] = numeroActual;
         }
-
 
         //Retornam el resultat, però la primera lletra en majuscules
         String resultat = Arrays.toString(arParaules);
@@ -34,7 +28,8 @@ public class Numbers {
         if (n < 20) {
             numero = unitat(arDigits);
 
-        //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció (exemple: 101, nesecita 100 i 1, una unitat i una centena)
+        //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció
+            // (exemple: 101, nesecita 100 i 1, una unitat i una centena)
         } else if (arDigits.length < 3) {
             numero = desena(arDigits);
 
