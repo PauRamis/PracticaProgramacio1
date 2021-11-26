@@ -7,54 +7,50 @@ public class Numbers {
         int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
 
 
-
+        String numeroActual = "";
         //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
         if (n > 20) {
             for (int i = 0; i < arDigits.length; i++) {
-                String numeroActual = ordreIfs(arDigits, n, i);
-                arParaules[i] = numeroActual;
+                numeroActual = ordreIfs(arDigits, n, i);
             }
             //Aquest else és exclusiu pels nombres menors de 20
         } else for (int i = 0; i < arDigits.length; i++) {
-            String numeroActual = ordreIfs(arDigits, n, i);
-            arParaules[0] = numeroActual;
+            numeroActual = ordreIfs(arDigits, n, i);
         }
         //Retornam el resultat, però la primera lletra en majuscules.
-        String Paraules = "";
-        String resultat = Arrays.toString(Paraules);
-        return resultat.toUpperCase().substring(0, 2) + resultat.substring(2);
+
+        String resultat = "";
+        resultat = resultat + numeroActual;
+        return resultat.toUpperCase().substring(0, 1) + resultat.substring(1);
     }
 
     //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
     private static String ordreIfs(int[] arDigits, long n, int i) {
         String numero = "";
 
-        //Primer de tot, si es menos que 10, va directe a la funció unitat.
-        if (n < 10) {
+        //Primer de tot, si es menos que 1, es zero directament, i si es menor a 10, va a la funció unitat.
+        if (n < 1) {
+            numero = "zero";
+        } else if (n < 10) {
             numero = unitat(arDigits);
 
             //Si son menys de 20, van a desenes de 10.
         } else if (n < 20) {
             numero = desenesDe10(arDigits);
 
-            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funcio (exemple: 101, nesecita 100 i 1, una unitat i una centena)
-        } else if (arDigits.length < 3) {
-            numero = desena(arDigits, i);
+        } else if (n < 100) {
+            numero = desena(arDigits);
 
-        } else if (arDigits.length < 4) {
-            numero = centena(arDigits, i);
+        } else if (n < 1000) {
+            numero = centena(arDigits);
         }
         return numero;
     }
-
 
     //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
     private static String unitat(int[] arDigits) {
         String numero = "";
         switch (arDigits[0]) {
-            case 0:
-                numero = "zero";
-                break;
             case 1:
                 numero = "one";
                 break;
@@ -127,9 +123,9 @@ public class Numbers {
         return numero;
     }
 
-    private static String desena(int[] arDigits, int i) {
+    private static String desena(int[] arDigits) {
         String numero = "";
-        switch (arDigits[i]) {
+        switch (arDigits[1]) {
             case 1:
                 numero = "";
                 break;
@@ -143,7 +139,7 @@ public class Numbers {
                 numero = "forty";
                 break;
             case 5:
-                numero = "fifthy";
+                numero = "fifty";
                 break;
             case 6:
                 numero = "sixty";
@@ -161,27 +157,36 @@ public class Numbers {
         return numero;
     }
 
-    private static String centena(int[] arDigits, int i) {
+    private static String centena(int[] arDigits) {
         String numero = "";
         switch (arDigits[2]) {
             case 1:
                 numero = "one hundred";
+                break;
             case 2:
                 numero = "two hundred";
+                break;
             case 3:
                 numero = "three hundred";
+                break;
             case 4:
                 numero = "forth hundred";
+                break;
             case 5:
                 numero = "fifth hundred";
+                break;
             case 6:
                 numero = "six hundred";
+                break;
             case 7:
                 numero = "seven hundred";
+                break;
             case 8:
                 numero = "eight hundred";
+                break;
             case 9:
                 numero = "nine hundred";
+                break;
         }
         return numero;
 

@@ -10,6 +10,7 @@ public class NumbersTest {
     }
 
    @org.junit.Test
+
     public void test2() {
         assertEquals("Ten", Numbers.say(10));
         assertEquals("Fourteen", Numbers.say(14));
