@@ -7,22 +7,22 @@ public class Numbers {
         int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
 
 
-
+        String Paraules = "";
         //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
         if (n > 20) {
             for (int i = 0; i < arDigits.length; i++) {
                 String numeroActual = ordreIfs(arDigits, n, i);
-                arParaules[i] = numeroActual;
+                Paraules = numeroActual;
             }
             //Aquest else és exclusiu pels nombres menors de 20
         } else for (int i = 0; i < arDigits.length; i++) {
             String numeroActual = ordreIfs(arDigits, n, i);
-            arParaules[0] = numeroActual;
+            Paraules = numeroActual;
         }
         //Retornam el resultat, però la primera lletra en majuscules.
-        String Paraules = "";
-        String resultat = Arrays.toString(Paraules);
-        return resultat.toUpperCase().substring(0, 2) + resultat.substring(2);
+
+        String resultat = Paraules;
+        return resultat.toUpperCase().substring(0, 1) + resultat.substring(1);
     }
 
     //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
@@ -38,10 +38,10 @@ public class Numbers {
             numero = desenesDe10(arDigits);
 
             //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funcio (exemple: 101, nesecita 100 i 1, una unitat i una centena)
-        } else if (arDigits.length < 3) {
+        } else if (n < 99) {
             numero = desena(arDigits, i);
 
-        } else if (arDigits.length < 4) {
+        } else if (n < 999) {
             numero = centena(arDigits, i);
         }
         return numero;
