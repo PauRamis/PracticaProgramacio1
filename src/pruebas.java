@@ -3,56 +3,43 @@ import java.util.Scanner;
 
 public class pruebas {
     public static void main(String[] args) {
-
-        int n = 10024;
+/*
+        int n = 10;
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
 
-        int[] arDigits = Integer.toString(n).chars().map(c -> c-'0').toArray();
+        //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
+        //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
+        int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
 
-        System.out.println(arDigits[4]);
-
-/*
-        String number = String.valueOf(n);
-        int[] arDigits = Integer.parseInt(number);
-        System.out.println(arDigits[0]);
-
-        //Ara cream un array per posteriorment posar-li els nombres en format de paruales
-        String[] arParaules = new String[number.length()];
-
-        //Ara voldrem trobar els ultims valors de l'array, per poder aplicar les funcions
-        for (int i = 1; i < arDigits.length; i++) {
-            int last = arDigits[arDigits.length - i];
-        }
+        //Ara cream un array per posteriorment guardar els nombres en format de paruales, per la longitut usam l'anterior array com referencia
+        String[] arParaules = new String[arDigits.length];
 
         //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
         for (int i = 0; i < arDigits.length; i++) {
             String numeroActual = ordreIfs(arDigits, n);
             arParaules[i] = numeroActual;
-            System.out.println(numeroActual);
         }
 
         //Retornam el resultat, però la primera lletra en majuscules
         String resultat = Arrays.toString(arParaules);
-        System.out.println(resultat.substring(0, 1).toUpperCase() + resultat.substring(1));
+        System.out.println(resultat.substring(0,1).toUpperCase() + resultat.substring(1).toLowerCase());
     }
 
     //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
-    private static String ordreIfs(char[] arDigits, long n) {
+    private static String ordreIfs(int [] arDigits, long n) {
         String numero = "";
 
         //Primer de tot, si es menos que 20, va directe a la funció unitat.
         if (n < 20) {
             numero = unitat(arDigits);
 
-            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció (exemple: 101, nesecita 100 i 1, una unitat i una centena)
-
-
+            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció
+            // (exemple: 101, nesecita 100 i 1, una unitat i una centena)
         }
         return numero;
-        //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
     }
 
-    private static String unitat(char [] arDigits) {
+    private static String unitat(int [] arDigits) {
         String numero = "";
         switch (arDigits[0]) {
             case 0:

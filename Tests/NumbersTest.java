@@ -9,7 +9,7 @@ public class NumbersTest {
         assertEquals("Six", Numbers.say(6));
     }
 
-    @org.junit.Test
+   @org.junit.Test
     public void test2() {
         assertEquals("Ten", Numbers.say(10));
         assertEquals("Fourteen", Numbers.say(14));
