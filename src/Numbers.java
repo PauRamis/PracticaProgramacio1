@@ -13,7 +13,7 @@ public class Numbers {
         return resultat.toUpperCase().substring(0, 1) + resultat.substring(1);
     }
 
-    //La funció bucle, s'encarda de cridar a la funció ordreIfs tantes vegades sigui necessari per completar el número indicat
+    //La funció bucle, s'en carga de cridar a la funció ordreIfs tantes vegades sigui necessari per completar el número indicat
     private static String bucle(int[] arDigits, long n) {
         String numeroActual = "";
         String numeroDefinitiu = "";
@@ -27,10 +27,12 @@ public class Numbers {
                 //Agafam el primer nombre de l'array (si no l'hem agafat ja)
                 numeroActual = ordreIfs(arDigits, n);
 
-                //Afegir guinet
-                if (n < 100 && n > 19){
+                //Afegir guinet si es un decimal major a 19
+                if (n < 100 && n > 19 && numeroActual !=""){
                     numeroActual = numeroActual + "-";
-                } else if (n > 100) {
+
+                    //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
+                } else if (n > 100 && n%10 != 0) {
                     numeroActual = numeroActual + " and ";
                 }
 
@@ -41,7 +43,7 @@ public class Numbers {
                 n = n / 10;
             }
 
-        //Al final del bucle, es retorna el numero definitiu. Si queda un quionet sobrant, s'elimina.
+        //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
         return numeroDefinitiu.replaceAll("-$","");
     }
 
@@ -68,7 +70,7 @@ public class Numbers {
         return numero;
     }
 
-    //Aquestes funcions s'activaran quan el caracter sigui una unitat, desena, centena, etc
+    //Aquestes funcions s'activaran quan el caràcter sigui una unitat, desena, centena, etc
     private static String unitat(int[] arDigits) {
         String numero = "";
 
@@ -195,10 +197,10 @@ public class Numbers {
                 numero = "three hundred";
                 break;
             case 4:
-                numero = "forth hundred";
+                numero = "four hundred";
                 break;
             case 5:
-                numero = "fifth hundred";
+                numero = "five hundred";
                 break;
             case 6:
                 numero = "six hundred";
