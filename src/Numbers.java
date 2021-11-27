@@ -30,6 +30,8 @@ public class Numbers {
                 //Afegir guinet
                 if (n < 100 && n > 19){
                     numeroActual = numeroActual + "-";
+                } else if (n > 100) {
+                    numeroActual = numeroActual + " and ";
                 }
 
                 //Anirem afegint els números actuals al número definitiu per cada passada del bucle
@@ -109,7 +111,8 @@ public class Numbers {
 
     private static String desenesDe10(int[] arDigits) {
         String numero = "";
-        switch (arDigits[arDigits.length -1]) {
+        if (arDigits.length < 3)
+            switch (arDigits[arDigits.length -1]) {
 
             case 0:
                 numero = "ten";
@@ -147,7 +150,7 @@ public class Numbers {
 
     private static String desena(int[] arDigits) {
         String numero = "";
-        switch (arDigits[0]) {
+        switch (arDigits[arDigits.length -2]) {
             case 1:
                 numero = "";
                 break;
@@ -181,25 +184,34 @@ public class Numbers {
 
     private static String centena(int[] arDigits) {
         String numero = "";
-        switch (arDigits[2]) {
+        switch (arDigits[arDigits.length -3]) {
             case 1:
                 numero = "one hundred";
+                break;
             case 2:
                 numero = "two hundred";
+                break;
             case 3:
                 numero = "three hundred";
+                break;
             case 4:
                 numero = "forth hundred";
+                break;
             case 5:
                 numero = "fifth hundred";
+                break;
             case 6:
                 numero = "six hundred";
+                break;
             case 7:
                 numero = "seven hundred";
+                break;
             case 8:
                 numero = "eight hundred";
+                break;
             case 9:
                 numero = "nine hundred";
+                break;
         }
         return numero;
 
