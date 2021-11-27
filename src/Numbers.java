@@ -39,8 +39,14 @@ public class Numbers {
                 //Anirem afegint els números actuals al número definitiu per cada passada del bucle
                 numeroDefinitiu = numeroDefinitiu + numeroActual;
 
-                //També anem dividint n entre 10 perquè el bucle vagi agafant de més gran a més petit.
-                n = n / 10;
+                //També, perquè el bucle vagi agafant de més gran a més petit...
+
+                //Convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
+                if (n > 9){
+                    String str = Long.toString(n);
+                    str = str.substring(1);
+                    n = Long.valueOf(str);
+                }
             }
 
         //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.

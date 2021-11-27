@@ -4,17 +4,27 @@ import java.util.Scanner;
 public class pruebas {
     public static void main(String[] args) {
 
-        int n = 101;
+        long n = 2;
 
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
         //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
-        int[] arDigits = Integer.toString(n).chars().map(c -> c - '0').toArray();
+        int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
 
         //Ara cream la funció bucle amb n i el seu array
         String resultat = bucle(arDigits, n);
 
         //Retornam el resultat, però la primera lletra en majuscules.
         System.out.println( resultat.toUpperCase().substring(0, 1) + resultat.substring(1));
+
+        System.out.println("...");
+
+        /* String str = Long.toString(n);
+
+        str = str.substring(1);
+
+        n = Long.valueOf(str);
+
+        System.out.println(n+100); */
     }
 
     private static String bucle(int[] arDigits, long n) {
