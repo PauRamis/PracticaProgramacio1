@@ -18,13 +18,19 @@ public class Numbers {
         String numeroActual = "";
         String numeroDefinitiu = "";
 
-        //Si el nombre es menor a 20, no fa falta un bucle
-        if (n < 20) numeroDefinitiu = ordreIfs(arDigits, n);
+        //Si el nombre es 0 o menor a 20, no fa falta un bucle
+        if (n < 1) numeroDefinitiu = "zero";
+        else if (n < 20) numeroDefinitiu = ordreIfs(arDigits, n);
         else
             for (int i = 0; i < arDigits.length; i++) {
 
+                //Agafam el primer nombre de l'array (si no l'hem agafat ja)
                 numeroActual = ordreIfs(arDigits, n);
 
+                //Afegir guinet
+                if (n < 100 && n > 19){
+                    numeroActual = numeroActual + "-";
+                }
 
                 //Anirem afegint els números actuals al número definitiu per cada passada del bucle
                 numeroDefinitiu = numeroDefinitiu + numeroActual;
@@ -33,12 +39,12 @@ public class Numbers {
                 n = n / 10;
             }
 
-        //Al final del bucle, es retorna el numero definitiu.
-        return numeroDefinitiu;
+        //Al final del bucle, es retorna el numero definitiu. Si queda un quionet sobrant, s'elimina.
+        return numeroDefinitiu.replaceAll("-$","");
     }
 
 
-    //Aquesta funció decideix a quina de les proximes funcions anirá el programa, dependent de la longitud del nombre n
+    //Aquesta funció decideix a quina de les pròximes funcions anirà el programa, dependent de la longitud del nombre n
     private static String ordreIfs(int[] arDigits, long n) {
         String numero = "";
 
@@ -63,10 +69,10 @@ public class Numbers {
     //Aquestes funcions s'activaran quan el caracter sigui una unitat, desena, centena, etc
     private static String unitat(int[] arDigits) {
         String numero = "";
-        switch (arDigits[0]) {
-            case 0:
-                numero = "zero";
-                break;
+
+        //Aquest switch sempre ha d'agafar com a variable l'ulim numero de l'array
+        switch (arDigits[arDigits.length -1]) {
+
             case 1:
                 numero = "one";
                 break;
@@ -103,7 +109,7 @@ public class Numbers {
 
     private static String desenesDe10(int[] arDigits) {
         String numero = "";
-        switch (arDigits[1]) {
+        switch (arDigits[arDigits.length -1]) {
 
             case 0:
                 numero = "ten";
@@ -141,7 +147,7 @@ public class Numbers {
 
     private static String desena(int[] arDigits) {
         String numero = "";
-        switch (arDigits[1]) {
+        switch (arDigits[0]) {
             case 1:
                 numero = "";
                 break;
