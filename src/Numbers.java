@@ -6,27 +6,40 @@ public class Numbers {
         //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
         int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
 
+        //Ara cream la funció bucle amb n i el seu array
+        String resultat = bucle(arDigits, n);
 
-        String Paraules = "";
-        //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
-        if (n > 20) {
-            for (int i = 0; i < arDigits.length; i++) {
-                String numeroActual = ordreIfs(arDigits, n, i);
-                Paraules = numeroActual;
-            }
-            //Aquest else és exclusiu pels nombres menors de 20
-        } else for (int i = 0; i < arDigits.length; i++) {
-            String numeroActual = ordreIfs(arDigits, n, i);
-            Paraules = numeroActual;
-        }
         //Retornam el resultat, però la primera lletra en majuscules.
-
-        String resultat = Paraules;
         return resultat.toUpperCase().substring(0, 1) + resultat.substring(1);
     }
 
-    //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
-    private static String ordreIfs(int[] arDigits, long n, int i) {
+    //La funció bucle, s'encarda de cridar a la funció ordreIfs tantes vegades sigui necessari per completar el número indicat
+    private static String bucle(int[] arDigits, long n) {
+        String numeroActual = "";
+        String numeroDefinitiu = "";
+
+        //Si el nombre es menor a 20, no fa falta un bucle
+        if (n < 20) numeroDefinitiu = ordreIfs(arDigits, n);
+        else
+            for (int i = 0; i < arDigits.length; i++) {
+
+                numeroActual = ordreIfs(arDigits, n);
+
+
+                //Anirem afegint els números actuals al número definitiu per cada passada del bucle
+                numeroDefinitiu = numeroDefinitiu + numeroActual;
+
+                //També anem dividint n entre 10 perquè el bucle vagi agafant de més gran a més petit.
+                n = n / 10;
+            }
+
+        //Al final del bucle, es retorna el numero definitiu.
+        return numeroDefinitiu;
+    }
+
+
+    //Aquesta funció decideix a quina de les proximes funcions anirá el programa, dependent de la longitud del nombre n
+    private static String ordreIfs(int[] arDigits, long n) {
         String numero = "";
 
         //Primer de tot, si es menos que 10, va directe a la funció unitat.
@@ -39,16 +52,15 @@ public class Numbers {
 
             //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funcio (exemple: 101, nesecita 100 i 1, una unitat i una centena)
         } else if (n < 99) {
-            numero = desena(arDigits, i);
+            numero = desena(arDigits);
 
         } else if (n < 999) {
-            numero = centena(arDigits, i);
+            numero = centena(arDigits);
         }
         return numero;
     }
 
-
-    //Aquestes funcions, s'activaran quan el caracter sigui una unitat, desena, centena, etc
+    //Aquestes funcions s'activaran quan el caracter sigui una unitat, desena, centena, etc
     private static String unitat(int[] arDigits) {
         String numero = "";
         switch (arDigits[0]) {
@@ -127,9 +139,9 @@ public class Numbers {
         return numero;
     }
 
-    private static String desena(int[] arDigits, int i) {
+    private static String desena(int[] arDigits) {
         String numero = "";
-        switch (arDigits[i]) {
+        switch (arDigits[1]) {
             case 1:
                 numero = "";
                 break;
@@ -161,7 +173,7 @@ public class Numbers {
         return numero;
     }
 
-    private static String centena(int[] arDigits, int i) {
+    private static String centena(int[] arDigits) {
         String numero = "";
         switch (arDigits[2]) {
             case 1:

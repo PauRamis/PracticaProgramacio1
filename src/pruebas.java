@@ -3,6 +3,12 @@ import java.util.Scanner;
 
 public class pruebas {
     public static void main(String[] args) {
+
+        int n = 123;
+        int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
+        System.out.println(arDigits[0]);
+
+
 /*
         int n = 10;
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
