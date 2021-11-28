@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class pruebas {
     public static void main(String[] args) {
 
-        long n = 111;
+        long n = 501;
 
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
         //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
@@ -33,8 +33,9 @@ public class pruebas {
             for (int i = 0; i < arDigits.length; i++) {
 
                 //Primer feim un if aclarant que si l'anterior resulat ha estat una desena de 10, la seguent no pot ser una unitat i s'omiteix.
-                if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual != desenesDe10(arDigits)){
-
+                if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual == desenesDe10(arDigits) && numeroActual != "") {
+                    numeroActual = "";
+                } else {
                     //Agafam el primer nombre de l'array (si no l'hem agafat ja)
                     numeroActual = ordreIfs(arDigits, n, i);
 
@@ -47,17 +48,16 @@ public class pruebas {
                     } else if (n > 100 && n % 10 != 0) {
                         numeroActual = numeroActual + " and ";
                     }
+                }
+                //Anirem afegint els números actuals al número definitiu per cada passada del bucle
+                numeroDefinitiu = numeroDefinitiu + numeroActual;
 
-                    //Anirem afegint els números actuals al número definitiu per cada passada del bucle
-                    numeroDefinitiu = numeroDefinitiu + numeroActual;
-
-                    //Perquè el bucle vagi agafant de més gran a més petit,
-                    //convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
-                    if (n > 9) {
-                        String str = Long.toString(n);
-                        str = str.substring(1);
-                        n = Long.valueOf(str);
-                    }
+                //Perquè el bucle vagi agafant de més gran a més petit,
+                //convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
+                if (n > 9) {
+                    String str = Long.toString(n);
+                    str = str.substring(1);
+                    n = Long.valueOf(str);
                 }
             }
         //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
@@ -72,7 +72,7 @@ public class pruebas {
         if (arDigits[i] == 0) {
             return numero;
 
-            //Si és menor de 10, va a la funció unitat.
+            //Si és menor de 10, va directe a la funció unitat.
         } else if (n < 10) {
             numero = unitat(arDigits);
 
@@ -218,10 +218,10 @@ public class pruebas {
                 numero = "three hundred";
                 break;
             case 4:
-                numero = "forth hundred";
+                numero = "four hundred";
                 break;
             case 5:
-                numero = "fifth hundred";
+                numero = "five hundred";
                 break;
             case 6:
                 numero = "six hundred";
@@ -236,9 +236,6 @@ public class pruebas {
                 numero = "nine hundred";
                 break;
         }
-        System.out.println("!!!");
-        System.out.println(numero);
-        System.out.println("!!!!!");
         return numero;
 
     }

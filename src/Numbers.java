@@ -133,7 +133,6 @@ public class Numbers {
 
     private static String desenesDe10(int[] arDigits) {
         String numero = "";
-        if (arDigits.length < 3)
             switch (arDigits[arDigits.length - 1]) {
 
                 case 0:
