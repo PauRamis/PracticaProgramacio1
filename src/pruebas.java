@@ -57,7 +57,7 @@ public class pruebas {
     }
 
     //Aquesta funció determina si el numero actual es una unitat, desena, o centena
-    private static String ordreIfs(int[] arDigits, long n) ,{
+    private static String ordreIfs(int[] arDigits, long n){
         String numero = "";
 
         //Primer de tot, si es menos que 10, va directe a la funció unitat.
