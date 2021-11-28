@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class pruebas {
     public static void main(String[] args) {
 
-        long n = 201;
+        long n = 111;
 
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
         //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
@@ -14,67 +14,81 @@ public class pruebas {
         String resultat = bucle(arDigits, n);
 
         //Retornam el resultat, però la primera lletra en majuscules.
-        System.out.println( resultat.toUpperCase().substring(0, 1) + resultat.substring(1));
-
-        System.out.println("...");
-
-         String str = Long.toString(n);
-
-        str = str.substring(1);
-
-        n = Long.valueOf(str);
-
-        System.out.println(n);
+        System.out.println (resultat.toUpperCase().substring(0, 1) + resultat.substring(1));
     }
 
     private static String bucle(int[] arDigits, long n) {
         String numeroActual = "";
         String numeroDefinitiu = "";
 
-        //Si el nombre es 0 o menor a 20, no fa falta un bucle
+        //Si el nombre es 0 o menor a 20, ens saltam el bucle
         if (n < 1) numeroDefinitiu = "zero";
-        else if (n < 20) numeroDefinitiu = ordreIfs(arDigits, n);
-        else
+        else if (n < 20) {
+
+            //El bucle d'abaix li dona la variant "i" a "ordreIfs" perquè trobi els "0" innecessaris, per això li hem de donar una "i" fixa.
+            int i = 0;
+            numeroDefinitiu = ordreIfs(arDigits, n, i);
+
+        } else
             for (int i = 0; i < arDigits.length; i++) {
 
-                //Agafam el primer nombre de l'array (si no l'hem agafat ja)
-                numeroActual = ordreIfs(arDigits, n);
+                //Primer feim un if aclarant que si l'anterior resulat ha estat una desena de 10, la seguent no pot ser una unitat i s'omiteix.
+                if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual != desenesDe10(arDigits)){
 
-                //Afegir guinet
-                if (n < 100 && n > 19){
-                    numeroActual = numeroActual + "-";
+                    //Agafam el primer nombre de l'array (si no l'hem agafat ja)
+                    numeroActual = ordreIfs(arDigits, n, i);
+
+
+                    //Afegir guinet si es un decimal major a 19
+                    if (n < 100 && n > 19 && numeroActual != "") {
+                        numeroActual = numeroActual + "-";
+
+                        //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
+                    } else if (n > 100 && n % 10 != 0) {
+                        numeroActual = numeroActual + " and ";
+                    }
+
+                    //Anirem afegint els números actuals al número definitiu per cada passada del bucle
+                    numeroDefinitiu = numeroDefinitiu + numeroActual;
+
+                    //Perquè el bucle vagi agafant de més gran a més petit,
+                    //convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
+                    if (n > 9) {
+                        String str = Long.toString(n);
+                        str = str.substring(1);
+                        n = Long.valueOf(str);
+                    }
                 }
-
-                //Anirem afegint els números actuals al número definitiu per cada passada del bucle
-                numeroDefinitiu = numeroDefinitiu + numeroActual;
-
-                //També anem dividint n entre 10 perquè el bucle vagi agafant de més gran a més petit.
-                n = n / 10;
             }
-
-        //Al final del bucle, es retorna el numero definitiu. Si queda un quionet sobrant, s'elimina.
-        return numeroDefinitiu.replaceAll("-$","");
+        //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
+        return numeroDefinitiu.replaceAll("-$", "");
     }
 
     //Aquesta funció determina si el numero actual es una unitat, desena, o centena
-    private static String ordreIfs(int[] arDigits, long n){
+    private static String ordreIfs(int[] arDigits, long n, int i) {
         String numero = "";
 
-        //Primer de tot, si es menos que 10, va directe a la funció unitat.
-        if (n < 10) {
+        //A principi del bucle es revisara que el digit seguent no sigui 0, en tal cas, no volem que es nomeni.
+        if (arDigits[i] == 0) {
+            return numero;
+
+            //Si és menor de 10, va a la funció unitat.
+        } else if (n < 10) {
             numero = unitat(arDigits);
 
-            //Si son menys de 20, van a desenes de 10.
+            //Si són menors de 20, van a desenes de 10.
         } else if (n < 20) {
             numero = desenesDe10(arDigits);
 
-            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funcio (exemple: 101, nesecita 100 i 1, una unitat i una centena)
-        } else if (n < 99) {
+            //Menors de 100, van a desena
+        } else if (n < 100) {
             numero = desena(arDigits);
 
-        } else if (n < 999) {
+            //Menors de 1000, a centena.
+        } else if (n < 1000) {
             numero = centena(arDigits);
         }
+
         return numero;
     }
 

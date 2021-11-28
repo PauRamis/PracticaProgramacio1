@@ -29,18 +29,23 @@ public class Numbers {
         } else
             for (int i = 0; i < arDigits.length; i++) {
 
-                //Agafam el primer nombre de l'array (si no l'hem agafat ja)
-                numeroActual = ordreIfs(arDigits, n, i);
+                //Primer feim un if aclarant que si l'anterior resulat ha estat una desena de 10, la seguent no pot ser una unitat i s'omiteix.
+                if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual == desenesDe10(arDigits) && numeroActual != "") {
+                    numeroActual = "";
+                } else {
+                    //Agafam el primer nombre de l'array (si no l'hem agafat ja)
+                    numeroActual = ordreIfs(arDigits, n, i);
 
-                //Afegir guinet si es un decimal major a 19
-                if (n < 100 && n > 19 && numeroActual != "") {
-                    numeroActual = numeroActual + "-";
 
-                    //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
-                } else if (n > 100 && n % 10 != 0) {
-                    numeroActual = numeroActual + " and ";
+                    //Afegir guinet si es un decimal major a 19
+                    if (n < 100 && n > 19 && numeroActual != "") {
+                        numeroActual = numeroActual + "-";
+
+                        //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
+                    } else if (n > 100 && n % 10 != 0) {
+                        numeroActual = numeroActual + " and ";
+                    }
                 }
-
                 //Anirem afegint els números actuals al número definitiu per cada passada del bucle
                 numeroDefinitiu = numeroDefinitiu + numeroActual;
 
