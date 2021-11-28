@@ -59,7 +59,7 @@ public class Numbers {
         String numero = "";
 
         //Primer de tot, si es menos que 10, va directe a la funció unitat.
-        if (n < 10) {
+        if (n < 10 ) {
             numero = unitat(arDigits);
 
             //Si son menys de 20, van a desenes de 10.

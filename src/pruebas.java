@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class pruebas {
     public static void main(String[] args) {
 
-        long n = 2;
+        long n = 201;
 
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
         //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
@@ -18,13 +18,13 @@ public class pruebas {
 
         System.out.println("...");
 
-        /* String str = Long.toString(n);
+         String str = Long.toString(n);
 
         str = str.substring(1);
 
         n = Long.valueOf(str);
 
-        System.out.println(n+100); */
+        System.out.println(n);
     }
 
     private static String bucle(int[] arDigits, long n) {
@@ -57,7 +57,7 @@ public class pruebas {
     }
 
     //Aquesta funció determina si el numero actual es una unitat, desena, o centena
-    private static String ordreIfs(int[] arDigits, long n) {
+    private static String ordreIfs(int[] arDigits, long n) ,{
         String numero = "";
 
         //Primer de tot, si es menos que 10, va directe a la funció unitat.
