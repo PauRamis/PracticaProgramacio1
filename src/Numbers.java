@@ -30,8 +30,23 @@ public class Numbers {
             numeroParcial = trobarParcials(arDigits, numeroActual, numeroParcial, n);
 
         //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
-        numeroTotal = numeroParcial.replaceAll("-$", "");
+        numeroParcial = numeroParcial.replaceAll("-$", "");
+
+        //Si el numero total és menor a 1000, donç es igual al numero total.
+        if (arDigits.length > 999){
+        numeroTotal = trobarTotals(arDigits, numeroActual, numeroParcial, n);
+        } else  numeroTotal = numeroParcial;
+
         return numeroTotal;
+    }
+
+    private static String trobarTotals(int[] arDigits, String numeroActual, String numeroParcial, long n) {
+        String numeroTotal = numeroActual;
+        int repeticions = arDigits.length/3;
+        for (int i = 0; i < repeticions; i++) {
+            trobarParcials(arDigits, numeroActual, numeroParcial, n);
+        }
+            return numeroParcial;
     }
 
     private static String trobarParcials(int[] arDigits, String numeroActual, String numeroParcial, long n) {
