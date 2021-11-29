@@ -3,48 +3,102 @@ import java.util.Scanner;
 
 public class pruebas {
     public static void main(String[] args) {
-/*
-        int n = 10;
-        //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
+
+        long n = 501;
 
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
         //Basicament convertim l'int a string, després agafam l'equivalent a la taula ASCII, i el tornam a convertir.
         int[] arDigits = Integer.toString((int) n).chars().map(c -> c - '0').toArray();
 
-        //Ara cream un array per posteriorment guardar els nombres en format de paruales, per la longitut usam l'anterior array com referencia
-        String[] arParaules = new String[arDigits.length];
+        //Ara cream la funció bucle amb n i el seu array
+        String resultat = bucle(arDigits, n);
 
-        //la funció ordreIfs ens tornarà cada vegada el nom del nombre que pertoqui
-        for (int i = 0; i < arDigits.length; i++) {
-            String numeroActual = ordreIfs(arDigits, n);
-            arParaules[i] = numeroActual;
-        }
-
-        //Retornam el resultat, però la primera lletra en majuscules
-        String resultat = Arrays.toString(arParaules);
-        System.out.println(resultat.substring(0,1).toUpperCase() + resultat.substring(1).toLowerCase());
+        //Retornam el resultat, però la primera lletra en majuscules.
+        System.out.println (resultat.toUpperCase().substring(0, 1) + resultat.substring(1));
     }
 
-    //Aquesta funció decideix a quina de les proximes funcions anirá el programa, depengent de la longitut del nombre n
-    private static String ordreIfs(int [] arDigits, long n) {
+    private static String bucle(int[] arDigits, long n) {
+        String numeroActual = "";
+        String numeroDefinitiu = "";
+
+        //Si el nombre es 0 o menor a 20, ens saltam el bucle
+        if (n < 1) numeroDefinitiu = "zero";
+        else if (n < 20) {
+
+            //El bucle d'abaix li dona la variant "i" a "ordreIfs" perquè trobi els "0" innecessaris, per això li hem de donar una "i" fixa.
+            int i = 0;
+            numeroDefinitiu = ordreIfs(arDigits, n, i);
+
+        } else
+            for (int i = 0; i < arDigits.length; i++) {
+
+                //Primer feim un if aclarant que si l'anterior resulat ha estat una desena de 10, la seguent no pot ser una unitat i s'omiteix.
+                if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual == desenesDe10(arDigits) && numeroActual != "") {
+                    numeroActual = "";
+                } else {
+                    //Agafam el primer nombre de l'array (si no l'hem agafat ja)
+                    numeroActual = ordreIfs(arDigits, n, i);
+
+
+                    //Afegir guinet si es un decimal major a 19
+                    if (n < 100 && n > 19 && numeroActual != "") {
+                        numeroActual = numeroActual + "-";
+
+                        //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
+                    } else if (n > 100 && n % 10 != 0) {
+                        numeroActual = numeroActual + " and ";
+                    }
+                }
+                //Anirem afegint els números actuals al número definitiu per cada passada del bucle
+                numeroDefinitiu = numeroDefinitiu + numeroActual;
+
+                //Perquè el bucle vagi agafant de més gran a més petit,
+                //convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
+                if (n > 9) {
+                    String str = Long.toString(n);
+                    str = str.substring(1);
+                    n = Long.valueOf(str);
+                }
+            }
+        //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
+        return numeroDefinitiu.replaceAll("-$", "");
+    }
+
+    //Aquesta funció determina si el numero actual es una unitat, desena, o centena
+    private static String ordreIfs(int[] arDigits, long n, int i) {
         String numero = "";
 
-        //Primer de tot, si es menos que 20, va directe a la funció unitat.
-        if (n < 20) {
+        //A principi del bucle es revisara que el digit seguent no sigui 0, en tal cas, no volem que es nomeni.
+        if (arDigits[i] == 0) {
+            return numero;
+
+            //Si és menor de 10, va directe a la funció unitat.
+        } else if (n < 10) {
             numero = unitat(arDigits);
 
-            //Els altres dependràn del nombre de caractes que tengui el nombre, i pot ser necessitem més d'una funció
-            // (exemple: 101, nesecita 100 i 1, una unitat i una centena)
+            //Si són menors de 20, van a desenes de 10.
+        } else if (n < 20) {
+            numero = desenesDe10(arDigits);
+
+            //Menors de 100, van a desena
+        } else if (n < 100) {
+            numero = desena(arDigits);
+
+            //Menors de 1000, a centena.
+        } else if (n < 1000) {
+            numero = centena(arDigits);
         }
+
         return numero;
     }
 
-    private static String unitat(int [] arDigits) {
+    //Aquestes funcions s'activaran quan el caracter sigui una unitat, desena, centena, etc
+    private static String unitat(int[] arDigits) {
         String numero = "";
-        switch (arDigits[0]) {
-            case 0:
-                numero = "zero";
-                break;
+
+        //Aquest switch sempre ha d'agafar com a variable l'ulim numero de l'array
+        switch (arDigits[arDigits.length -1]) {
+
             case 1:
                 numero = "one";
                 break;
@@ -72,39 +126,119 @@ public class pruebas {
             case 9:
                 numero = "nine";
                 break;
-            case 10:
+            default:
+                numero = "";
+                break;
+        }
+        return numero;
+    }
+
+    private static String desenesDe10(int[] arDigits) {
+        String numero = "";
+        switch (arDigits[arDigits.length -1]) {
+
+            case 0:
                 numero = "ten";
                 break;
-            case 11:
+            case 1:
                 numero = "eleven";
                 break;
-            case 12:
+            case 2:
                 numero = "twelve";
                 break;
-            case 13:
+            case 3:
                 numero = "thirteen";
                 break;
-            case 14:
+            case 4:
                 numero = "fourteen";
                 break;
-            case 15:
+            case 5:
                 numero = "fifteen";
                 break;
-            case 16:
+            case 6:
                 numero = "sixteen";
                 break;
-            case 17:
+            case 7:
                 numero = "seventeen";
                 break;
-            case 18:
+            case 8:
                 numero = "eighteen";
                 break;
-            case 19:
+            case 9:
                 numero = "nineteen";
                 break;
-
         }
-        System.out.println(numero);
         return numero;
-   */ }
+    }
+
+    private static String desena(int[] arDigits) {
+        String numero = "";
+        switch (arDigits[arDigits.length -2]) {
+            case 1:
+                numero = "";
+                break;
+            case 2:
+                numero = "twenty";
+                break;
+            case 3:
+                numero = "thirty";
+                break;
+            case 4:
+                numero = "forty";
+                break;
+            case 5:
+                numero = "fifthy";
+                break;
+            case 6:
+                numero = "sixty";
+                break;
+            case 7:
+                numero = "seventy";
+                break;
+            case 8:
+                numero = "eighty";
+                break;
+            case 9:
+                numero = "ninety";
+                break;
+        }
+        return numero;
+    }
+
+    private static String centena(int[] arDigits) {
+        String numero = "";
+        switch (arDigits[arDigits.length -3]) {
+            case 1:
+                numero = "one hundred";
+                break;
+            case 2:
+                numero = "two hundred";
+                break;
+            case 3:
+                numero = "three hundred";
+                break;
+            case 4:
+                numero = "four hundred";
+                break;
+            case 5:
+                numero = "five hundred";
+                break;
+            case 6:
+                numero = "six hundred";
+                break;
+            case 7:
+                numero = "seven hundred";
+                break;
+            case 8:
+                numero = "eight hundred";
+                break;
+            case 9:
+                numero = "nine hundred";
+                break;
+        }
+        return numero;
+
+    }
+
+
 }
