@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Numbers {
     public static String say(long n) {
         //Primer, pasarem el nombre "n" a un array format per tots els seus digits ordenats
@@ -16,49 +14,57 @@ public class Numbers {
     //La funció bucle, s'en carga de cridar a la funció ordreIfs tantes vegades sigui necessari per completar el número indicat
     private static String bucle(int[] arDigits, long n) {
         String numeroActual = "";
-        String numeroDefinitiu = "";
+        String numeroParcial = "";
+        String numeroTotal = "";
+        //numeroActual és el que s'agafa en cada bucle, numeroParcial és la fusió de 3 numerosActuals, i numeroTotal son tots el numeros Totals
 
         //Si el nombre es 0 o menor a 20, ens saltam el bucle
-        if (n < 1) numeroDefinitiu = "zero";
+        if (n < 1) numeroParcial = "zero";
         else if (n < 20) {
 
             //El bucle d'abaix li dona la variant "i" a "ordreIfs" perquè trobi els "0" innecessaris, per això li hem de donar una "i" fixa.
             int i = 0;
-            numeroDefinitiu = ordreIfs(arDigits, n, i);
+            numeroParcial = ordreIfs(arDigits, n, i);
 
         } else
-            for (int i = 0; i < arDigits.length; i++) {
+            numeroParcial = trobarParcials(arDigits, numeroActual, numeroParcial, n);
 
-                //Primer feim un if aclarant que si l'anterior resulat ha estat una desena de 10, la seguent no pot ser una unitat i s'omiteix.
-                if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual == desenesDe10(arDigits) && numeroActual != "") {
-                    numeroActual = "";
-                } else {
-                    //Agafam el primer nombre de l'array (si no l'hem agafat ja)
-                    numeroActual = ordreIfs(arDigits, n, i);
+        //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
+        numeroTotal = numeroParcial.replaceAll("-$", "");
+        return numeroTotal;
+    }
 
+    private static String trobarParcials(int[] arDigits, String numeroActual, String numeroParcial, long n) {
+        for (int i = 0; i < arDigits.length; i++) {
 
-                    //Afegir guinet si es un decimal major a 19
-                    if (n < 100 && n > 19 && numeroActual != "") {
-                        numeroActual = numeroActual + "-";
+            //Primer feim un if aclarant que si l'anterior resulat ha estat una desena de 10, la seguent no pot ser una unitat i s'omiteix.
+            if (ordreIfs(arDigits, n, i) == unitat(arDigits) && numeroActual == desenesDe10(arDigits) && numeroActual != "") {
+                numeroActual = "";
+            } else {
+                //Agafam el primer nombre de l'array (si no l'hem agafat ja)
+                numeroActual = ordreIfs(arDigits, n, i);
 
-                        //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
-                    } else if (n > 100 && n % 10 != 0) {
-                        numeroActual = numeroActual + " and ";
-                    }
-                }
-                //Anirem afegint els números actuals al número definitiu per cada passada del bucle
-                numeroDefinitiu = numeroDefinitiu + numeroActual;
+                //Afegir guinet si es un decimal major a 19
+                if (n < 100 && n > 19 && numeroActual != "") {
+                    numeroActual = numeroActual + "-";
 
-                //Perquè el bucle vagi agafant de més gran a més petit,
-                //convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
-                if (n > 9) {
-                    String str = Long.toString(n);
-                    str = str.substring(1);
-                    n = Long.valueOf(str);
+                    //Afegir "and" sempre que després d'una centena o millar hi hagi una unitat sense decimal.
+                } else if (n > 100 && n % 10 != 0) {
+                    numeroActual = numeroActual + " and ";
                 }
             }
-        //Al final del bucle, es retorna el número definitiu. Si queda un guionet sobrant, s'elimina.
-        return numeroDefinitiu.replaceAll("-$", "");
+            //Anirem afegint els números actuals al número definitiu per cada passada del bucle
+            numeroParcial = numeroParcial + numeroActual;
+
+            //Perquè el bucle vagi agafant de més gran a més petit,
+            //convertim n a String per eliminar el seu primer caràcter i tonar-lo a long, fins que en quedi només un.
+            if (n > 9) {
+                String str = Long.toString(n);
+                str = str.substring(1);
+                n = Long.valueOf(str);
+            }
+        }
+        return numeroParcial;
     }
 
 
@@ -89,6 +95,7 @@ public class Numbers {
 
         return numero;
     }
+
 
     //Aquestes funcions s'activaran quan el caràcter sigui una unitat, desena, centena, etc
     private static String unitat(int[] arDigits) {
